@@ -1,0 +1,38 @@
+services:
+  # Database Service
+  db:
+    image: postgres:15-alpine
+    container_name: my-postgres-db
+    environment:
+      - POSTGRES_USER=myuser
+      - POSTGRES_PASSWORD=admin12345
+      - POSTGRES_DB=mydatabase
+    ports:
+      - "5433:5432"
+
+    volumes:
+      - my-postgres-data:/var/lib/postgresql/data  
+    restart: always
+
+  # Website Service
+  web:
+    build: .
+    container_name: pkweb-container
+    ports:
+      - "3000:3000"
+      - "5555:5555"
+   
+    env_file:
+      - .env.docker
+    depends_on:
+      - db
+    
+
+volumes:
+  my-postgres-data:
+    
+  
+
+
+    
+    
