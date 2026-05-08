@@ -16,7 +16,8 @@ services:
 
   # Website Service
   web:
-    build: .
+    image: yusaku99/my-web-app:latest
+    
     container_name: pkweb-container
     ports:
       - "3000:3000"

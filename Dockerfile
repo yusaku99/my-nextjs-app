@@ -1,4 +1,4 @@
-FROM node:20-alpine
+FROM node:22-alpine
 
 WORKDIR /app
 
@@ -16,4 +16,4 @@ RUN npm run build
 
 EXPOSE 3000
 
-CMD npx prisma migrate deploy && npm start
+CMD ["sh", "-c", "npx prisma migrate deploy && npm start"]
