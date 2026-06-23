@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nocodb-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nocodb
+  template:
+    metadata:
+      labels:
+        app: nocodb
+    spec:
+      containers:
+      - name: nocodb
+        image: nocodb/nocodb:latest
+        ports:
+        - containerPort: 8080
+        env:
+
+        - name: NC_DB
+          value: "pg://postgres-service:5432?u=yuzana&p=securepassword123&d=pkzatkar_db"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nocodb-service
+spec:
+  type: NodePort
+  ports:
+  - port: 8080
+    targetPort: 8080
+    nodePort: 30185
+  selector:
+    app: nocodb
